@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '@environments/environment';
-import { User } from '@app/_models';
+import { User, SignupRequest } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -16,8 +16,8 @@ export class UserService {
         return this.http.get(`${environment.apiUrl}/users/${id}`);
     }
 
-    register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
+    register(signupRequest: SignupRequest) {
+        return this.http.post(environment.signupUrl, signupRequest);
     }
 
     update(user: User) {

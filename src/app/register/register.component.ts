@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
+import { SignupRequest } from '@app/_models';
+import { MustMatch, ValidateUsername } from '@app/_helpers';
+
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
@@ -26,10 +29,13 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            fullname: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(40)]],
+            username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15), ValidateUsername]],
+            email: ['', [Validators.required, Validators.maxLength(40), Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*')]],
+            password2: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
+        }, {
+            validator: MustMatch('password', 'password2')
         });
     }
 
@@ -45,10 +51,18 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value)
-            .pipe(first())
+        let signupRequest: SignupRequest = {
+            name: this.registerForm.controls['fullname'].value,
+            username: this.registerForm.controls['username'].value,
+            email: this.registerForm.controls['email'].value,
+            password: this.registerForm.controls['password'].value
+        }
+
+        this.userService.register(signupRequest)
+            // .pipe(first())
             .subscribe(
                 data => {
+                    console.log(data);
                     this.alertService.success('Registration successful', true);
                     this.router.navigate(['/login']);
                 },

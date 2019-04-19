@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { User } from '@app/_models';
+import { User, LoginRequest, JwtAuthenticationResponse } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,23 +20,33 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
+    login(loginRequest: LoginRequest) {
+        return this.http.post<any>(environment.signinUrl, loginRequest)
+            .pipe(map((jwtAuthResponse: JwtAuthenticationResponse) => {
                 // login successful if there's a jwt token in the response
-                if (user && user.token) {
+                if (jwtAuthResponse && jwtAuthResponse.accessToken) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
+                    // localStorage.setItem('currentUser', JSON.stringify(user));
+                    sessionStorage.setItem('accessToken', jwtAuthResponse.accessToken);
+                    this.currentUserSubject.next(null);
                 }
 
-                return user;
+                return jwtAuthResponse;
             }));
     }
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        // localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('accessToken');
         this.currentUserSubject.next(null);
+    }
+
+    private setAccessToken(accessToken: string): void {
+        sessionStorage.setItem('accessToken', accessToken);
+    }
+
+    public getAccessToken(): string {
+        return sessionStorage.getItem('accessToken');
     }
 }

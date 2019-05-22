@@ -4,10 +4,14 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:4000',
-  signinUrl: 'http://localhost:5000/api/auth/signin',
-  signupUrl: 'http://localhost:5000/api/auth/signup'
-
+  apiUrl: 'http://35.237.38.125:4000',
+  signinUrl: 'http://35.237.38.125:5000/api/auth/signin',
+  signupUrl: 'http://35.237.38.125:5000/api/auth/signup',
+  countryListUrl: 'http://35.237.38.125:5000/place/countries',
+  stateListUrl: 'http://35.237.38.125:5000/place/states?countryId=%s',
+  cityListUrl: 'http://35.237.38.125:5000/place/cities?stateId=%s',
+  country2ListUrl: 'http://35.237.38.125:5000/place/countries2',
+  universityListUrl: 'http://35.237.38.125:5000/place/universities?countryId=%s'
 };
 
 /*

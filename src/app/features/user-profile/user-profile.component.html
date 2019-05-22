@@ -1,0 +1,197 @@
+<h2>Profile</h2>
+<form [formGroup]="profileForm">
+    <mat-form-field>
+        <mat-label>Favoriate Animal</mat-label>
+        <mat-select formControlName="animalControl">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let animal of animals" [value]="animal">
+                {{animal.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="profileForm.get('animalControl').hasError('required')">Please choose an animal</mat-error>
+        <mat-hint>{{profileForm.get('animalControl').value?.sound}}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Favoriate Device</mat-label>
+        <mat-select formControlName="deviceControl">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let device of devices" [value]="device">
+                {{device.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="profileForm.get('animalControl').hasError('required')">Please choose an device</mat-error>
+        <mat-hint>{{profileForm.get('deviceControl').value?.price}}</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Email" formControlName="emailControl"
+            [errorStateMatcher]="matcher">
+            <mat-hint>Errors appear instantly</mat-hint>
+            <mat-error *ngIf="profileForm.get('emailControl').hasError('email') && !profileForm.get('emailControl').hasError('required')">
+                PLease enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="profileForm.get('emailControl').hasError('required')">
+                    Email is <strong>required</strong>
+                    </mat-error>
+    </mat-form-field>
+
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Register</button>
+        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <a routerLink="/login" class="btn btn-link">Cancel</a>
+    </div>
+</form>
+
+<!-- <div fxLayout="column" fxLayoutGap="32px">
+    <app-card></app-card>
+    <app-card></app-card>
+    <app-card></app-card>
+</div>
+
+<div 
+    fxLayout="row wrap"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="32px"
+    fxLayoutAlign="start">
+
+    <ng-container *ngFor="let _ of [1]">
+        <app-card
+            fxFlex="0 1 calc(33.3% - 32px)"
+            fxFlex.lt-ms="0 1 calc(50% - 32px)"
+            fxFlex.lt-sm="100%"></app-card>
+    </ng-container>
+
+</div> -->
+
+<div
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-1" fxFlex="15%" fxLayoutAlign="center center">Item 1</div>
+  <div class="item item-2" fxFlex="20%" fxFlexOrder="3" fxLayoutAlign="center center">Item 2</div>
+  <div class="item item-3" fxFlex fxLayoutAlign="center center">Item 3</div>
+</div>
+
+<div
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="end"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <div class="item item-4" fxFlex="25%" fxFlexOffset="25%"  fxFlexOffset.xs="0">Item 4</div>
+  <div class="item item-5" fxFlex="25%">Item 5</div>
+</div>
+
+<div
+     fxLayout
+     fxLayoutAlign="left"
+     fxLayoutGap="10px">
+  <div class="item item-4" fxFlex="16%" fxFlexOffset="33%">Item 4</div>
+  <div class="item item-5" fxFlex="16%">Item 5</div>
+</div>
+
+
+
+
+<form [formGroup]="profileForm">
+    <div 
+        fxLayout="column"
+        fxLayoutGap="20px">
+
+        <div
+            fxLayout
+            fxLayoutWrap
+            fxLayoutGap="20px">
+                <mat-form-field fxFlexOffset="25%" fxFlex="0 0 calc(25% - 20px)">
+                    <mat-label>Favoriate Animal</mat-label>
+                    <mat-select
+                        formControlName="animalControl"
+                        (selectionChange)="countryChanged($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let animal of countries" [value]="animal.id">
+                            {{animal.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="profileForm.get('animalControl').hasError('required')">Please choose an animal</mat-error>
+                    <mat-hint>{{profileForm.get('animalControl').value?.sound}}</mat-hint>
+                </mat-form-field>
+            
+                <mat-form-field fxFlex="0 0 calc(25% - 20px)">
+                    <mat-label>Favoriate Device</mat-label>
+                    <mat-select
+                        formControlName="deviceControl"
+                        (selectionChange)="stateChanged($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let device of states" [value]="device">
+                            {{device.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="profileForm.get('animalControl').hasError('required')">Please choose an device</mat-error>
+                    <mat-hint>{{profileForm.get('deviceControl').value?.price}}</mat-hint>
+                </mat-form-field>
+        </div>
+
+        <div
+            fxLayout>
+            <mat-form-field fxFlex="0 0 calc(50% - 20px)" fxFlexOffset="25%">
+                <input matInput placeholder="Email" formControlName="emailControl"
+                    [errorStateMatcher]="matcher">
+                    <mat-hint>Errors appear instantly</mat-hint>
+                    <mat-error *ngIf="profileForm.get('emailControl').hasError('email') && !profileForm.get('emailControl').hasError('required')">
+                        PLease enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="profileForm.get('emailControl').hasError('required')">
+                            Email is <strong>required</strong>
+                            </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div
+            fxLayout>
+            <div class="form-group" fxFlexOffset="25%" fxFlex="50%">
+                <button [disabled]="loading" class="btn btn-primary">Register</button>
+                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a routerLink="/login" class="btn btn-link">Cancel</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div fxLayout="column">
+        <div fxFlexOffset="25%" fxFlex="50%">
+            <mat-form-field fxFlexFill>
+                <input matInput placeholder="Email" formControlName="emailControl"
+                    [errorStateMatcher]="matcher">
+                    <mat-hint>Errors appear instantly</mat-hint>
+                    <mat-error *ngIf="profileForm.get('emailControl').hasError('email') && !profileForm.get('emailControl').hasError('required')">
+                        PLease enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="profileForm.get('emailControl').hasError('required')">
+                            Email is <strong>required</strong>
+                            </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout="column">
+        <div fxFlexOffset="25%" fxFlex="50%">
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">Register</button>
+                <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <a routerLink="/login" class="btn btn-link">Cancel</a>
+            </div>
+        </div>
+        
+    </div> -->
+</form>
+
+
+
+<img [src]="url" width="200" height="200" *ngIf="url"> <br/><br/>
+<input type='file' (change)="onSelectFile($event)">
+
+<input style="display: none" type="file" (change)="onSelectFile($event)" #selectFile>
+<button (click)="selectFile.click()">Select File</button>
+
